@@ -44,7 +44,7 @@ pipeline {
                     sh 'cd /tmp'
                     sh 'mkdir -p /tmp/src/app'
                     sh 'echo "tempuser:x:$(id -u):$(id -g):,,,:${HOME}:/bin/bash" >> /etc/passwd'
-                    sh 'echo "tempuser:x:$(id -G | cut -d' ' -f 2)" >> /etc/group'
+                    sh '''echo "tempuser:x:$(id -G | cut -d' ' -f 2)" >> /etc/group'''
                     sh 'id'
                     // Copy all files in our Jenkins workspace to our project directory.
                     sh 'cp -r ${WORKSPACE}/* /tmp/src/app'
