@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: hello-svc
+  name: go-app-svc
 spec:
   selector:
-    role: app
+    role: go-app
   ports:
     - protocol: TCP
       port: 8081
