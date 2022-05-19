@@ -33,7 +33,7 @@ pipeline {
         stage('ansible') {
            agent {
                docker {
-                   image 'alpine'
+                   image 'bee7ch/ansible'
                }
            }
            steps {
@@ -43,10 +43,6 @@ pipeline {
                     sh 'mkdir -p /tmp/src/app'
                     // Copy all files in our Jenkins workspace to our project directory.
                     sh 'cp -r ${WORKSPACE}/* /tmp/src/app'
-                    sh 'apk update'
-                    sh 'apk add ansible'
-                    sh 'apk add py-pip'
-                    sh 'pip install -r requirments.txt'
                     sh 'ansible-playbook ansible/main.yml'
 
                }
