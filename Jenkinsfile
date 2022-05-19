@@ -8,26 +8,27 @@ pipeline {
   }
   agent any
   stages {
-    //    stage('Build') {
-    //        agent {
-    //            docker {
-    //                image 'golang'
-    //            }
-    //        }
-    //        steps {
-    //            // Create our project directory.
-    //            sh 'cd ${GOPATH}/src'
-    //            sh 'mkdir -p ${GOPATH}/src/app'
-    //            // Copy all files in our Jenkins workspace to our project directory.
-    //            sh 'cp -r ${WORKSPACE}/* ${GOPATH}/src/app'
-    //            // Build the app.
-    //            sh 'rm -f go.mod'
-    //            sh 'go clean -cache'
-    //            sh 'go mod init app'
-    //            sh 'go mod tidy'
-    //            sh 'go build'
-    //        }
-    //    }
+       stage('Build') {
+           agent {
+               docker {
+                   image 'golang'
+               }
+           }
+           steps {
+               // Create our project directory.
+               sh 'cd ${GOPATH}/src'
+               sh 'env'
+               sh 'mkdir -p ${GOPATH}/src/app'
+               // Copy all files in our Jenkins workspace to our project directory.
+               sh 'cp -r ${WORKSPACE}/* ${GOPATH}/src/app'
+               // Build the app.
+               sh 'rm -f go.mod'
+               sh 'go clean -cache'
+               sh 'go mod init app'
+               sh 'go mod tidy'
+               sh 'go build'
+           }
+       }
     //    stage('Test') {
     //        agent {
     //            docker {
@@ -91,20 +92,20 @@ pipeline {
     //   }
     // }
 
-    stage('Spin in kubernetes') {
+    // stage('Spin in kubernetes') {
 
-            steps {
-                script {
-                    sh 'cd /tmp'
-                    sh 'mkdir -p /tmp/src/app'
-                    // Copy all files in our Jenkins workspace to our project directory.
-                    sh 'cp -r ${WORKSPACE}/* /tmp/src/app'
+    //         steps {
+    //             script {
+    //                 sh 'cd /tmp'
+    //                 sh 'mkdir -p /tmp/src/app'
+    //                 // Copy all files in our Jenkins workspace to our project directory.
+    //                 sh 'cp -r ${WORKSPACE}/* /tmp/src/app'
 
-                    kubernetesDeploy(configs: "kubernetes/*", kubeconfigId: "kubeconfig-secret")
-                }
-            }
+    //                 kubernetesDeploy(configs: "kubernetes/*", kubeconfigId: "kubeconfig-secret")
+    //             }
+    //         }
 
-       }
+    //    }
 
 
   }

@@ -1,0 +1,34 @@
+---
+- name: Ansible k8s module
+  hosts: localhost
+  connection: local
+
+# Defining the remote server where the k8 module will manage the objects
+#   remote_user: ubuntu   # Using Remote user as ubuntu
+  tasks:
+    - name: Create a k8s namespace
+      k8s:
+        name: test-namespace # defining the namespace
+        api_version: v1
+        kind: Namespace
+        state: present    # State=present when you need to create new object
+
+    - name: Create svc
+      k8s:
+        state: present      # State=present when you need to create new object
+        namespace: default  # defining the namespace
+        src: ../kubernetes/app-svc.yaml
+
+# Creating a Kubernetes deployment in ata-namespace using file stored locally
+
+    - name: Create deployment
+      k8s:
+        state: present            # State=present when you need to create new object
+        namespace: default  # defining the namespace
+        src: ../kubernetes/app-deployment.yaml  # Source file location
+
+    - name: Create ingress
+      k8s:
+        state: present            # State=present when you need to create new object
+        namespace: default  # defining the namespace
+        src: ../kubernetes/ingress.yaml  # Source file location
