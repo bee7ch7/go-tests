@@ -15,7 +15,6 @@ pipeline {
                }
            }
            steps {
-               withCredentials([file(credentialsId: 'kube-config-microk8s', variable: 'KUBECONFIG')]) {
                     // Create our project directory.
                     sh 'cd ${GOPATH}/src'
                     sh 'env'
@@ -28,6 +27,27 @@ pipeline {
                     sh 'go mod init app'
                     sh 'go mod tidy'
                     sh 'go build'
+           }
+       }
+
+        stage('testkube') {
+           agent {
+               docker {
+                   image 'golang'
+               }
+           }
+           steps {
+               withCredentials([file(credentialsId: 'kube-config-microk8s', variable: 'KUBECONFIG')]) {
+                    // Create our project directory.
+                    sh 'cd ${GOPATH}/src'
+                    sh 'mkdir -p ${GOPATH}/src/app'
+                    // Copy all files in our Jenkins workspace to our project directory.
+                    sh 'cp -r ${WORKSPACE}/* ${GOPATH}/src/app'
+                    sh 'apt update'
+                    sh 'apt install ansible python3-pip -y'
+                    sh 'pip install -r requirments.txt'
+                    sh 'ansible-playbook main.yml'
+
                }
            }
        }
