@@ -8,32 +8,32 @@ pipeline {
   }
   agent any
   stages {
-       stage('Build') {
-           agent {
-               docker {
-                   image 'golang'
-               }
-           }
-           steps {
-                    // Create our project directory.
-                    sh 'cd ${GOPATH}/src'
-                    sh 'env'
-                    sh 'mkdir -p ${GOPATH}/src/app'
-                    // Copy all files in our Jenkins workspace to our project directory.
-                    sh 'cp -r ${WORKSPACE}/* ${GOPATH}/src/app'
-                    // Build the app.
-                    sh 'rm -f go.mod'
-                    sh 'go clean -cache'
-                    sh 'go mod init app'
-                    sh 'go mod tidy'
-                    sh 'go build'
-           }
-       }
+    //    stage('Build') {
+    //        agent {
+    //            docker {
+    //                image 'golang'
+    //            }
+    //        }
+    //        steps {
+    //                 // Create our project directory.
+    //                 sh 'cd ${GOPATH}/src'
+    //                 sh 'env'
+    //                 sh 'mkdir -p ${GOPATH}/src/app'
+    //                 // Copy all files in our Jenkins workspace to our project directory.
+    //                 sh 'cp -r ${WORKSPACE}/* ${GOPATH}/src/app'
+    //                 // Build the app.
+    //                 sh 'rm -f go.mod'
+    //                 sh 'go clean -cache'
+    //                 sh 'go mod init app'
+    //                 sh 'go mod tidy'
+    //                 sh 'go build'
+    //        }
+    //    }
 
-        stage('testkube') {
+        stage('ansible') {
            agent {
                docker {
-                   image 'golang'
+                   image 'alpine'
                }
            }
            steps {
@@ -43,10 +43,11 @@ pipeline {
                     sh 'mkdir -p ${GOPATH}/src/app'
                     // Copy all files in our Jenkins workspace to our project directory.
                     sh 'cp -r ${WORKSPACE}/* ${GOPATH}/src/app'
-                    sh 'apt update'
-                    sh 'apt install ansible python3-pip -y'
+                    sh 'apk update'
+                    sh 'apk add ansible'
+                    sh 'apk add py-pip'
                     sh 'pip install -r requirments.txt'
-                    sh 'ansible-playbook main.yml'
+                    sh 'ansible-playbook ansible/main.yml'
 
                }
            }
