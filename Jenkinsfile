@@ -100,7 +100,7 @@ pipeline {
                     // Copy all files in our Jenkins workspace to our project directory.
                     sh 'cp -r ${WORKSPACE}/* /tmp/src/hello-world'
 
-                    kubernetesDeploy(configs: "kubernetes/ingess.yaml, kubernetes/nginx-deployments.yaml, kubernetes/nginx-service.yaml", kubeconfigId: "kubeconfig-secret")
+                    kubernetesDeploy(configs: "kubernetes/ingess.yaml", kubeconfigId: "kubeconfig-secret")
                 }
             }
 
