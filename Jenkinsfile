@@ -104,7 +104,6 @@ pipeline {
 
                    sh 'curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl'
                    sh 'chmod +x ./kubectl'
-                   sh 'sudo mv ./kubectl /usr/local/bin'
                    sh 'mkdir -p /tmp/src/kubernetes'
                     // Copy all files in our Jenkins workspace to our project directory.
                    sh 'cp -r ${WORKSPACE}/* /tmp/src/kubernetes'
