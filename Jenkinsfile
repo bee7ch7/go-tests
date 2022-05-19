@@ -41,7 +41,7 @@ pipeline {
     stage('Run Docker image') {
       steps{
         sh '''#!/bin/bash
-        if [ "$(docker ps -q -f name=${imagename})" ]
+        if [ "$(docker ps -q -f name=${imagelocalname})" ]
         then
          docker stop ${imagelocalname}
          docker rm ${imagelocalname} 2>/dev/null
