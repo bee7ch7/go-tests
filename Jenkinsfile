@@ -15,18 +15,20 @@ pipeline {
                }
            }
            steps {
-               // Create our project directory.
-               sh 'cd ${GOPATH}/src'
-               sh 'env'
-               sh 'mkdir -p ${GOPATH}/src/app'
-               // Copy all files in our Jenkins workspace to our project directory.
-               sh 'cp -r ${WORKSPACE}/* ${GOPATH}/src/app'
-               // Build the app.
-               sh 'rm -f go.mod'
-               sh 'go clean -cache'
-               sh 'go mod init app'
-               sh 'go mod tidy'
-               sh 'go build'
+               withCredentials([file(credentialsId: 'kube-config-microk8s', variable: 'KUBECONFIG')]) {
+                    // Create our project directory.
+                    sh 'cd ${GOPATH}/src'
+                    sh 'env'
+                    sh 'mkdir -p ${GOPATH}/src/app'
+                    // Copy all files in our Jenkins workspace to our project directory.
+                    sh 'cp -r ${WORKSPACE}/* ${GOPATH}/src/app'
+                    // Build the app.
+                    sh 'rm -f go.mod'
+                    sh 'go clean -cache'
+                    sh 'go mod init app'
+                    sh 'go mod tidy'
+                    sh 'go build'
+               }
            }
        }
     //    stage('Test') {
