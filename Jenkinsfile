@@ -94,7 +94,7 @@ pipeline {
     stage('Spin in kubernetes') {
            agent {
                docker {
-                   image 'bitnami/kubectl'
+                   image 'golang'
                }
            }
            steps {
