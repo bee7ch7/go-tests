@@ -95,12 +95,12 @@ pipeline {
 
             steps {
                 script {
-                    sh 'cd ${GOPATH}/src'
-                    sh 'mkdir -p ${GOPATH}/src/hello-world'
+                    sh 'cd /tmp'
+                    sh 'mkdir -p /tmp/src/hello-world'
                     // Copy all files in our Jenkins workspace to our project directory.
-                    sh 'cp -r ${WORKSPACE}/* ${GOPATH}/src/hello-world'
+                    sh 'cp -r ${WORKSPACE}/* /tmp/src/hello-world'
 
-                    kubernetesDeploy(configs: "${GOPATH}/src/hello-world/kubernetes/app-deployment.yaml", kubeconfigId: "kubeconfig-secret")
+                    kubernetesDeploy(configs: "/tmp/src/hello-world/kubernetes/app-deployment.yaml", kubeconfigId: "kubeconfig-secret")
                 }
             }
 
