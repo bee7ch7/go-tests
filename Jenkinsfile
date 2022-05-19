@@ -41,7 +41,7 @@ pipeline {
                // Copy all files in our Jenkins workspace to our project directory.
                sh 'cp -r ${WORKSPACE}/* ${GOPATH}/src/hello-world'
                // Remove cached test results.
-               sh 'go rm -f go.mod'
+               sh 'rm -f go.mod'
                sh 'go clean -cache'
                sh 'go mod init hello-world'
                sh 'go mod tidy'
