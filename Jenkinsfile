@@ -1,5 +1,6 @@
 pipeline {
   environment {
+    GOCACHE = "/tmp"
     imagename = "bee7ch/go-test"
     imagelocalname = "bee7ch-go-test"
     registryCredential = 'dockerhub_id'
@@ -22,7 +23,7 @@ pipeline {
                // Build the app.
                sh 'go mod init hello-world'
                sh 'go mod tidy'
-               sh 'sudo go build'
+               sh 'go build'
            }
        }
        stage('Test') {
