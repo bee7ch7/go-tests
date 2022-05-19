@@ -76,7 +76,7 @@ pipeline {
 
       }
     }
-    stage('Run Docker image') {
+    stage('Run Docker image Localy') {
       steps{
         sh '''#!/bin/bash
         if [ "$(docker ps -q -f name=${imagelocalname})" ]
