@@ -5,6 +5,7 @@ pipeline {
     imagelocalname = "bee7ch-go-test"
     registryCredential = 'dockerhub_id'
     dockerImage = ''
+    ANSIBLE_LOCAL_TEMP = "/tmp"
   }
   agent any
   stages {
