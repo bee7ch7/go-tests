@@ -99,7 +99,10 @@ pipeline {
            }
            steps {
 
-               docker.withRegistry( '', registryCredential )
+                script {
+                docker.withRegistry( '', registryCredential ) {
+                }
+                }
 
                 withCredentials([file(credentialsId: 'kube-config-microk8s', variable: 'KUBECONFIG')]) {
                    sh 'cd /tmp'
