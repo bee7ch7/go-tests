@@ -45,9 +45,9 @@ pipeline {
         then
          docker stop ${imagelocalname}
          docker rm ${imagelocalname} 2>/dev/null
-         docker run --name=${imagelocalname} --rm -p8080:8080 -d ${imagename}
+         docker run --name=${imagelocalname} --rm -p 8081:8081 -d ${imagename}
         else
-         docker run --name=${imagelocalname} --rm -p8080:8080 -d ${imagename}
+         docker run --name=${imagelocalname} --rm -p 8081:8081 -d ${imagename}
         fi
         '''
       }
