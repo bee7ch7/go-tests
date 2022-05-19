@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: app
-        image: bee7ch/go-tests:latest
+        image: bee7ch/go-test:latest
         resources:
           requests:
             cpu: 10m
