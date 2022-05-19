@@ -40,13 +40,13 @@ pipeline {
     stage('Run Docker image') {
       steps{
         sh '''#!/bin/bash
-        if [ "$(docker ps -q -f name=${imagename})" ]
+        if [ "$(docker ps -q -f name=bee7ch/go-test)" ]
         then
          docker stop bee7ch-jenkins
          docker rm bee7ch-jenkins 2>/dev/null
-         docker run --name=${imagename} --rm -p8080:8080 -d ${imagename}
+         docker run --name=bee7ch/go-test --rm -p8080:8080 -d bee7ch/go-test
         else
-         docker run --name=${imagename} --rm -p8080:8080 -d ${imagename}
+         docker run --name=bee7ch/go-test --rm -p8080:8080 -d bee7ch/go-test
         fi
         '''
       }
