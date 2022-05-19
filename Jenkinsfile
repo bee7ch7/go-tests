@@ -31,6 +31,9 @@ pipeline {
     //    }
 
         stage('ansible') {
+            environment {
+                  HOME="."
+                }
            agent {
                docker {
                    image 'bee7ch/ansible'
