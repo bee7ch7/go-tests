@@ -1,6 +1,7 @@
 ---
 - name: Ansible k8s module
   hosts: localhost
+  gather_facts: no
   connection: local
 
 # Defining the remote server where the k8 module will manage the objects
