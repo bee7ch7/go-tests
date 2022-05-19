@@ -1,6 +1,6 @@
 pipeline {
   environment {
-    imagename = "bee7ch/go-test"
+    imagename = "bee7ch/gotest"
     registryCredential = 'dockerhub_id'
     dockerImage = ''
   }
@@ -40,13 +40,13 @@ pipeline {
     stage('Run Docker image') {
       steps{
         sh '''#!/bin/bash
-        if [ "$(docker ps -q -f name=bee7ch/go-test)" ]
+        if [ "$(docker ps -q -f name=bee7ch/gotest)" ]
         then
-         docker stop bee7ch-jenkins
-         docker rm bee7ch-jenkins 2>/dev/null
-         docker run --name=bee7ch/go-test --rm -p8080:8080 -d bee7ch/go-test
+         docker stop bee7ch/gotest
+         docker rm bee7ch/gotest 2>/dev/null
+         docker run --name=bee7ch/gotest --rm -p8080:8080 -d bee7ch/gotest
         else
-         docker run --name=bee7ch/go-test --rm -p8080:8080 -d bee7ch/go-test
+         docker run --name=bee7ch/gotest --rm -p8080:8080 -d bee7ch/gotest
         fi
         '''
       }
