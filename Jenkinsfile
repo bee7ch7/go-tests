@@ -39,10 +39,10 @@ pipeline {
            steps {
                withCredentials([file(credentialsId: 'kube-config-microk8s', variable: 'KUBECONFIG')]) {
                     // Create our project directory.
-                    sh 'cd ${GOPATH}/src'
-                    sh 'mkdir -p ${GOPATH}/src/app'
+                    sh 'cd /tmp/src'
+                    sh 'mkdir -p /tmp/src/app'
                     // Copy all files in our Jenkins workspace to our project directory.
-                    sh 'cp -r ${WORKSPACE}/* ${GOPATH}/src/app'
+                    sh 'cp -r ${WORKSPACE}/* /tmp/src/app'
                     sh 'apk update'
                     sh 'apk add ansible'
                     sh 'apk add py-pip'
