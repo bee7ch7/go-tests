@@ -101,15 +101,18 @@ pipeline {
 
                 withCredentials([file(credentialsId: 'kube-config-microk8s', variable: 'KUBECONFIG')]) {
                    sh 'cd /tmp'
-                   sh 'env'
-                   
+
+                   sh 'curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl'
+                   sh 'chmod +x ./kubectl'
+                   sh 'mv ./kubectl /usr/local/bin'
                    sh 'mkdir -p /tmp/src/kubernetes'
                     // Copy all files in our Jenkins workspace to our project directory.
                    sh 'cp -r ${WORKSPACE}/* /tmp/src/kubernetes'
                    sh 'ls -la'
+                   sh 'kubectl version'
                    sh 'kubectl get pods -A'
-                   sh 'kubectl apply -f src/kubernetes/app-deployment.yaml'
-                   sh 'kubectl apply -f src/kubernetes/app-svc.yaml'
+                //    sh 'kubectl apply -f src/kubernetes/app-deployment.yaml'
+                //    sh 'kubectl apply -f src/kubernetes/app-svc.yaml'
                 }
 
            }
