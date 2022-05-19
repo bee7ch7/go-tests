@@ -39,7 +39,7 @@ pipeline {
            steps {
                withCredentials([file(credentialsId: 'kube-config-microk8s', variable: 'KUBECONFIG')]) {
                     // Create our project directory.
-                    sh 'cd /tmp/src'
+                    sh 'cd /tmp'
                     sh 'mkdir -p /tmp/src/app'
                     // Copy all files in our Jenkins workspace to our project directory.
                     sh 'cp -r ${WORKSPACE}/* /tmp/src/app'
