@@ -89,5 +89,29 @@ pipeline {
         '''
       }
     }
+
+    // stage('spin in kubernetes') {
+    //        agent {
+    //            docker {
+    //                image 'kubectl'
+    //            }
+    //        }
+    //        steps {
+    //             withCredentials([file(credentialsId: 'kube-config-microk8s', variable: 'KUBECONFIG')]) {
+    //                sh 'cd /tmp'
+    //                sh 'env'
+    //                
+    //                sh 'mkdir -p /tmp/src/kubernetes'
+    //                 // Copy all files in our Jenkins workspace to our project directory.
+    //                sh 'cp -r ${WORKSPACE}/* /tmp/src/kubernetes'
+    //                sh 'kubectl get pods -A'
+    //                sh 'kubectl apply -f kubernetes/app-deployment.yaml'
+    //                sh 'kubectl apply -f kubernetes/app-svc.yaml'
+    //             }
+
+    //        }
+    //    }
+
+
   }
 }
