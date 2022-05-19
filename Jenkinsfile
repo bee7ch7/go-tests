@@ -108,7 +108,6 @@ pipeline {
                     // Copy all files in our Jenkins workspace to our project directory.
                    sh 'cp -r ${WORKSPACE}/* /tmp/src/kubernetes'
                    sh 'ls -la'
-                   sh 'pwd'
                    sh '/tmp/kubectl version'
                    sh 'kubectl get pods -A'
                 //    sh 'kubectl apply -f src/kubernetes/app-deployment.yaml'
