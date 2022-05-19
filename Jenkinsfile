@@ -92,29 +92,18 @@ pipeline {
     // }
 
     stage('Spin in kubernetes') {
-           agent {
-               docker {
-                   image 'golang'
-               }
-           }
-           steps {
 
-                withCredentials([file(credentialsId: 'kube-config-microk8s', variable: 'KUBECONFIG')]) {
-                   sh 'cd /tmp'
-                   sh 'pwd'
-                   sh 'curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl'
-                   sh 'chmod +x ./kubectl'
-                   sh 'mkdir -p /tmp/src/kubernetes'
+            steps {
+                script {
+                    sh 'cd ${GOPATH}/src'
+                    sh 'mkdir -p ${GOPATH}/src/hello-world'
                     // Copy all files in our Jenkins workspace to our project directory.
-                   sh 'cp -r ${WORKSPACE}/* /tmp/src/kubernetes'
-                   sh 'ls -la'
-                   sh '/tmp/kubectl version'
-                   sh 'kubectl get pods -A'
-                //    sh 'kubectl apply -f src/kubernetes/app-deployment.yaml'
-                //    sh 'kubectl apply -f src/kubernetes/app-svc.yaml'
-                }
+                    sh 'cp -r ${WORKSPACE}/* ${GOPATH}/src/hello-world'
 
-           }
+                    kubernetesDeploy(configs: "${GOPATH}/src/hello-world/kubernetes/app-deployment.yaml", kubeconfigId: "kubeconfig-secret")
+                }
+            }
+
        }
 
 
