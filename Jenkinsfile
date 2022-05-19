@@ -22,7 +22,7 @@ pipeline {
                // Build the app.
                sh 'go mod init hello-world'
                sh 'go mod tidy'
-               sh 'go build'
+               sh 'sudo go build'
            }
        }
        stage('Test') {
