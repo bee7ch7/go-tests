@@ -1,6 +1,7 @@
 pipeline {
   environment {
-    imagename = "bee7ch/gotest"
+    imagename = "bee7ch/go-test"
+    imagelocalname = "bee7ch-go-test"
     registryCredential = 'dockerhub_id'
     dockerImage = ''
   }
@@ -32,7 +33,7 @@ pipeline {
     }
     stage('Remove Unused docker image') {
       steps{
-        sh "docker rmi $imagename:$BUILD_NUMBER"
+         sh "docker rmi $imagename:$BUILD_NUMBER"
          sh "docker rmi $imagename:latest"
 
       }
@@ -40,13 +41,13 @@ pipeline {
     stage('Run Docker image') {
       steps{
         sh '''#!/bin/bash
-        if [ "$(docker ps -q -f name=bee7ch/gotest)" ]
+        if [ "$(docker ps -q -f name=${imagename})" ]
         then
-         docker stop bee7ch/gotest
-         docker rm bee7ch/gotest 2>/dev/null
-         docker run --name=bee7ch/gotest --rm -p8080:8080 -d bee7ch/gotest
+         docker stop ${imagelocalname}
+         docker rm ${imagelocalname} 2>/dev/null
+         docker run --name=${imagelocalname} --rm -p8080:8080 -d ${imagename}
         else
-         docker run --name=bee7ch/gotest --rm -p8080:8080 -d bee7ch/gotest
+         docker run --name=${imagelocalname} --rm -p8080:8080 -d ${imagename}
         fi
         '''
       }
