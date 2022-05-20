@@ -35,8 +35,8 @@ pipeline {
            agent {
                docker {
                    image 'bee7ch/ansible'
-                  //  args '-it -u 0:0 --entrypoint='
-                   args '-it --entrypoint='
+                   args '-it -u 0:0 --entrypoint='
+                  // args '-it --entrypoint='
                }
            }
            steps {
