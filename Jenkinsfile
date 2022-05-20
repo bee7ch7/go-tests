@@ -94,7 +94,7 @@ pipeline {
         '''
       }
     }
-    // ingress wont deploy with kubernetesDeploy, an error appear
+    // Works only with Kubernetes Continuous Deploy 1.0.0, but ingress wont deploy with kubernetesDeploy, an error appear
     // stage('Spin in kubernetes') {
 
     //         steps {
