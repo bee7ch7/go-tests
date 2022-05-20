@@ -35,18 +35,19 @@ pipeline {
            agent {
                docker {
                    image 'bee7ch/ansible'
-                   args '-it --entrypoint='
+                   args '-it -u 0:0 --entrypoint='
                }
            }
            steps {
                withCredentials([file(credentialsId: 'kube-config-microk8s', variable: 'KUBECONFIG')]) {
-                    // Create our project directory.
+                    // // Create our project directory.
                     sh 'cd /tmp'
                     sh 'mkdir -p /tmp/src/app'
-                    // Copy all files in our Jenkins workspace to our project directory.
+                    // // Copy all files in our Jenkins workspace to our project directory.
                     sh 'cp -r ${WORKSPACE}/* /tmp/src/app'
-                    sh 'ansible-playbook ansible/main.yml'
-
+                    sh 'ls'
+                    // sh 'ansible-playbook ansible/main.yml'
+                ansiblePlaybook(inventory: 'localhost', playbook: 'ansible/main.yml')
                }
            }
        }
