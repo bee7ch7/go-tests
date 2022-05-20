@@ -47,8 +47,8 @@ pipeline {
                     // // Copy all files in our Jenkins workspace to our project directory.
                     sh 'cp -r ${WORKSPACE}/* /tmp/src/app'
                     sh 'ls'
-                    // sh 'ansible-playbook ansible/main.yml'
-                ansiblePlaybook(inventory: 'localhost', playbook: 'ansible/main.yml')
+                    sh 'ansible-playbook ansible/main.yml'
+                // ansiblePlaybook(inventory: 'localhost', playbook: 'ansible/main.yml')
                }
            }
        }
