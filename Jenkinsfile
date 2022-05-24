@@ -17,8 +17,9 @@ pipeline {
            }
            steps {
                     // Create project directory.
-                    sh 'cd ${GOPATH}/src'
                     sh 'env'
+                    sh 'cd ${GOPATH}/src'
+                    
                     sh 'mkdir -p ${GOPATH}/src/app'
                     // Copy all files in Jenkins workspace to project directory.
                     sh 'cp -r ${WORKSPACE}/* ${GOPATH}/src/app'
