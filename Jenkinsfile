@@ -17,7 +17,7 @@ pipeline {
                }
            }
            steps {
-                    // Create project directory.
+                    // Create project directory
                     sh 'env'
                     sh 'cd ${GOPATH}/src'
                     
