@@ -7,12 +7,13 @@ pipeline {
     dockerImage = ''
     ANSIBLE_LOCAL_TEMP = "/tmp"
   }
-  // agent any
+  agent any
   stages {
        stage('Build') {
            agent {
                docker {
                    image 'golang'
+                  //  alwaysPull true
                }
            }
            steps {
