@@ -109,6 +109,9 @@ pipeline {
     //         }
 
     //    }
+    stage('Validation') {
+      input "Deploy to prod?"
+    }
 
     stage('Deploy to Kubernete with Ansible') {
            agent {
