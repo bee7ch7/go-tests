@@ -19,7 +19,9 @@ kubeconfig in env for ansible to connect:
                }
            }
 ```
-Run Jenkins in docker:
+
+Jenkins docker runner:
+```
 docker run --name jenkins-docker --rm --detach --privileged \
 --network jenkins --network-alias docker \
 --env DOCKER_TLS_CERTDIR=/certs \
@@ -28,6 +30,9 @@ docker run --name jenkins-docker --rm --detach --privileged \
 --publish 2376:2376 docker:dind \
 --storage-driver overlay2
 ```
+
+Jenkins itself:
+
 ```
 docker run --name jenkins-blueocean2 \
 --restart=on-failure --detach --network jenkins \
