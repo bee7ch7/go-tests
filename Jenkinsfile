@@ -13,7 +13,6 @@ pipeline {
            agent {
                docker {
                    image 'golang'
-                   alwaysPull true
                }
            }
            steps {
