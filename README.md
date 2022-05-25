@@ -19,6 +19,7 @@ kubeconfig in env for ansible to connect:
                }
            }
 ```
+
 Jenkins docker runner:
 ```
 docker run --name jenkins-docker --rm --detach --privileged \
@@ -29,7 +30,9 @@ docker run --name jenkins-docker --rm --detach --privileged \
 --publish 2376:2376 docker:dind \
 --storage-driver overlay2
 ```
+
 Jenkins itself:
+
 ```
 docker run --name jenkins-blueocean2 \
 --restart=on-failure --detach --network jenkins \
